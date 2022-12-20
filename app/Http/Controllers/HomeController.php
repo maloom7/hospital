@@ -32,4 +32,16 @@ class HomeController extends Controller
             return redirect()->back();
         }
     }
+
+
+
+
+
+
+// home page
+
+public function index()
+{
+    return view('user.home');
+}
 }
