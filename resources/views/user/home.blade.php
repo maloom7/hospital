@@ -89,6 +89,10 @@
 
             @auth 
 
+            <li class="nav-item">
+              <a class="nav-link" style="background-color:rgba(58, 80, 25, 0.47); color:white" href="{{url('myappointment')}}">My Appointments</a>
+            </li>
+
             <x-app-layout>
             </x-app-layout>
             
@@ -123,10 +127,7 @@
 
       <div class="alert alert-success">
 
-          <button type="button" class="close" data-dismiss="alert">
-              x
-
-          </button>
+          <button type="button" class="close" data-dismiss="alert">x</button>
 
           {{session()->get('message')}}
 

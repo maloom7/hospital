@@ -97,5 +97,38 @@ public function appointment(Request $request)
     return redirect()->back()->with('message','Appointment sent successfully');
 }
 
+public function myappointment()
+{
+    if(Auth::id())
+    {
+
+        $userid=Auth::user()->id;
+
+        $appoint=appointment::where('user_id',$userid)->get();
+
+    return view('user.my_appointment',compact('appoint'));
+}
+
+else 
+{
+    return redirect()->back();
+}
+
+
+}
+
+// cancel appointment
+public function cancel_appoint($id)
+{
+    $data=appointment::find($id);
+
+    $data->delete();
+
+    return redirect()->back();
+}
+
+
+
+
 
 }
