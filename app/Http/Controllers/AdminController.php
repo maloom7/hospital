@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Models\Doctor;
 
+use App\Models\Appointment;
+
+
 class AdminController extends Controller
 {
     // add doctor
@@ -45,5 +48,37 @@ class AdminController extends Controller
         return redirect()->back()->with('message', 'Doctor Added Successfully');
 
         
+    }
+
+    // Show appointment
+    public function showappointment()
+    {
+        $data=appointment::all();
+
+        return view('admin.showappointment',compact('data'));
+    }
+
+    // Approve appoint
+    public function approved($id)
+    {
+        $data=appointment::find($id);
+
+        $data->status='Approved';
+
+        $data->save();
+
+        return redirect()->back();
+    }
+
+    // Cancel appoint
+    public function canceled($id)
+    {
+        $data=appointment::find($id);
+
+        $data->status='Canceled';
+
+        $data->save();
+
+        return redirect()->back();
     }
 }
