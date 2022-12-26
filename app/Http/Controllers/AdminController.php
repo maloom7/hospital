@@ -81,4 +81,26 @@ class AdminController extends Controller
 
         return redirect()->back();
     }
+
+
+    // Show doctors
+    public function showdoctor()
+    {
+        $data = doctor::all();
+
+        return view('admin.showdoctor',compact('data'));
+    }
+
+
+    // Delete doctors
+    public function deletedoctor($id)
+    {
+        $data=doctor::find($id);
+
+        $data->delete();
+
+        return redirect()->back();
+    }
+
+
 }
