@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Models\Doctor;
 
+use Illuminate\Support\Facades\Auth;
+
 use App\Models\Appointment;
 
 use Notification;
@@ -20,9 +22,28 @@ class AdminController extends Controller
     // add doctor
     public function addview()
     {
+        if(Auth::id())
+        {
+            if(Auth::user()->usertype==1)
+
+            {
+                return view('admin.add_doctor');
 
 
-        return view('admin.add_doctor');
+            }
+
+            else
+            {
+                return redirect()->back();
+            }
+        }
+
+        else
+        {
+            return redirect('login');
+        }
+
+
     }
     
     // upload doctor
@@ -59,9 +80,27 @@ class AdminController extends Controller
     // Show appointment
     public function showappointment()
     {
+        if(Auth::id())
+        {
+            if(Auth::user()->usertype==1)
+
+            {
+
+
         $data=appointment::all();
 
         return view('admin.showappointment',compact('data'));
+            }
+            else
+            {
+                return redirect()->back();
+            }
+
+        }
+        else
+        {
+            return redirect('login');
+        }
     }
 
     // Approve appoint
