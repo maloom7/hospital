@@ -9,6 +9,8 @@ use App\Models\Doctor;
 use App\Models\Appointment;
 
 
+
+
 class AdminController extends Controller
 {
     // add doctor
@@ -100,6 +102,46 @@ class AdminController extends Controller
         $data->delete();
 
         return redirect()->back();
+    }
+
+    // Update doctor
+    public function updatedoctor($id)
+    {
+        $data = doctor::find($id);
+
+        return view('admin.update_doctor',compact('data'));
+    }
+
+    // Edit doctors data and submit
+    public function editdoctor(Request $request , $id)
+    {
+        $doctor = doctor::find($id);
+
+// the first (name) is from database and the second (name) is from update_doctor class and the same for the others
+        $doctor->name=$request->name;
+        
+        $doctor->phone=$request->phone;
+        
+        $doctor->speciality=$request->speciality;
+       
+        $doctor->room=$request->room;
+
+        $image=$request->file;
+
+        if($image)
+        {
+
+        $imagename=time().'.'.$image->getClientOriginalExtension();
+
+        $request->file->move('doctorimage',$imagename);
+
+        $doctor->image=$imagename;
+
+        }
+
+        $doctor->save();
+
+        return redirect()->back()->with('message','Doctor Details Updated Successfully');
     }
 
 
